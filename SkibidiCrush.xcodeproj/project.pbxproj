@@ -11,6 +11,11 @@
 		F8A6A4D32C4B59CD007CAAA9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4D22C4B59CD007CAAA9 /* ContentView.swift */; };
 		F8A6A4D52C4B59CE007CAAA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8A6A4D42C4B59CE007CAAA9 /* Assets.xcassets */; };
 		F8A6A4D82C4B59CE007CAAA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8A6A4D72C4B59CE007CAAA9 /* Preview Assets.xcassets */; };
+		F8A6A4E02C4B65B4007CAAA9 /* HighlightableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4DF2C4B65B4007CAAA9 /* HighlightableButton.swift */; };
+		F8A6A4E32C4B65FB007CAAA9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4E22C4B65FB007CAAA9 /* Extensions.swift */; };
+		F8A6A4EA2C4B6A80007CAAA9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4E92C4B6A80007CAAA9 /* GameScene.swift */; };
+		F8A6A4EC2C4B6B1C007CAAA9 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4EB2C4B6B1C007CAAA9 /* StartView.swift */; };
+		F8A6A4EF2C4B6DFB007CAAA9 /* SkibidiToilet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4EE2C4B6DFB007CAAA9 /* SkibidiToilet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +24,11 @@
 		F8A6A4D22C4B59CD007CAAA9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F8A6A4D42C4B59CE007CAAA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8A6A4D72C4B59CE007CAAA9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F8A6A4DF2C4B65B4007CAAA9 /* HighlightableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightableButton.swift; sourceTree = "<group>"; };
+		F8A6A4E22C4B65FB007CAAA9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F8A6A4E92C4B6A80007CAAA9 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		F8A6A4EB2C4B6B1C007CAAA9 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		F8A6A4EE2C4B6DFB007CAAA9 /* SkibidiToilet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkibidiToilet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +61,11 @@
 		F8A6A4CF2C4B59CD007CAAA9 /* SkibidiCrush */ = {
 			isa = PBXGroup;
 			children = (
+				F8A6A4ED2C4B6DEF007CAAA9 /* Models */,
+				F8A6A4E42C4B6A45007CAAA9 /* Scenes */,
+				F8A6A4E12C4B65F1007CAAA9 /* Supporting */,
+				F8A6A4DE2C4B6596007CAAA9 /* Views */,
 				F8A6A4D02C4B59CD007CAAA9 /* SkibidiCrushApp.swift */,
-				F8A6A4D22C4B59CD007CAAA9 /* ContentView.swift */,
 				F8A6A4D42C4B59CE007CAAA9 /* Assets.xcassets */,
 				F8A6A4D62C4B59CE007CAAA9 /* Preview Content */,
 			);
@@ -65,6 +78,40 @@
 				F8A6A4D72C4B59CE007CAAA9 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F8A6A4DE2C4B6596007CAAA9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F8A6A4D22C4B59CD007CAAA9 /* ContentView.swift */,
+				F8A6A4DF2C4B65B4007CAAA9 /* HighlightableButton.swift */,
+				F8A6A4EB2C4B6B1C007CAAA9 /* StartView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F8A6A4E12C4B65F1007CAAA9 /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				F8A6A4E22C4B65FB007CAAA9 /* Extensions.swift */,
+			);
+			path = Supporting;
+			sourceTree = "<group>";
+		};
+		F8A6A4E42C4B6A45007CAAA9 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				F8A6A4E92C4B6A80007CAAA9 /* GameScene.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		F8A6A4ED2C4B6DEF007CAAA9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F8A6A4EE2C4B6DFB007CAAA9 /* SkibidiToilet.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +184,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8A6A4EA2C4B6A80007CAAA9 /* GameScene.swift in Sources */,
+				F8A6A4E02C4B65B4007CAAA9 /* HighlightableButton.swift in Sources */,
 				F8A6A4D32C4B59CD007CAAA9 /* ContentView.swift in Sources */,
+				F8A6A4EF2C4B6DFB007CAAA9 /* SkibidiToilet.swift in Sources */,
+				F8A6A4EC2C4B6B1C007CAAA9 /* StartView.swift in Sources */,
+				F8A6A4E32C4B65FB007CAAA9 /* Extensions.swift in Sources */,
 				F8A6A4D12C4B59CD007CAAA9 /* SkibidiCrushApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,11 +327,12 @@
 				DEVELOPMENT_TEAM = XAU9475CXA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Skibidi Crush";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -304,11 +357,12 @@
 				DEVELOPMENT_TEAM = XAU9475CXA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Skibidi Crush";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
