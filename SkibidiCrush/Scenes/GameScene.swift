@@ -53,17 +53,23 @@ class GameScene: SKScene, ObservableObject {
                         //skibidiToilets[row][column]!.node.drawBorder(color: .green, width: 10.0)
                         // swap two toilets
                         if firstToiletTapped == nil {
-                            firstToiletTapped!.node = targetNode
+                            firstToiletTapped = skibidiToilets[row][column]
                         } else if secondToiletTapped == nil {
-                            if abs(secondToiletTapped!.row-firstToiletTapped!.row) > 1 || abs(secondToiletTapped!.column-firstToiletTapped!.column) > 1 {
-                                firstToiletTapped!.node = targetNode
-                            } else {
-                                firstToiletTapped!.node = targetNode
+                            print("\(abs(skibidiToilets[row][column]!.row-firstToiletTapped!.row))")
+                            print("\(abs(skibidiToilets[row][column]!.column-firstToiletTapped!.column))")
+                            if abs(skibidiToilets[row][column]!.row-firstToiletTapped!.row) <= 1 && abs(skibidiToilets[row][column]!.column-firstToiletTapped!.column) <= 1 {
+                                secondToiletTapped = skibidiToilets[row][column]
                                 // play animation
                                 // animation complete --> set below nodes to nil
                                 let moveFirstToiletAction = SKAction.move(to: CGPoint(x: secondToiletTapped!.node.position.x, y: secondToiletTapped!.node.position.y), duration: 0.3)
-                                let moveSecondToiletAction = SKAction.move(to: CGPoint(x: secondToiletTapped!.node.position.x, y: secondToiletTapped!.node.position.y), duration: 0.3)
-                                secondToiletTapped!.node.run(moveFirstToiletAction)
+                                let moveSecondToiletAction = SKAction.move(to: CGPoint(x: firstToiletTapped!.node.position.x, y: firstToiletTapped!.node.position.y), duration: 0.3)
+                                let firstToiletRow = firstToiletTapped!.row
+                                let firstToiletColumn = firstToiletTapped!.column
+                                skibidiToilets[firstToiletTapped!.arrayRow][firstToiletTapped!.arrayColumn]!.row = secondToiletTapped!.row
+                                skibidiToilets[firstToiletTapped!.arrayRow][firstToiletTapped!.arrayColumn]!.column = secondToiletTapped!.column
+                                skibidiToilets[secondToiletTapped!.arrayRow][secondToiletTapped!.arrayColumn]!.row = firstToiletRow
+                                skibidiToilets[secondToiletTapped!.arrayRow][secondToiletTapped!.arrayColumn]!.column = firstToiletColumn
+                                firstToiletTapped!.node.run(moveFirstToiletAction)
                                 secondToiletTapped!.node.run(moveSecondToiletAction, completion: {
                                     self.firstToiletTapped = nil
                                     self.secondToiletTapped = nil
@@ -106,6 +112,8 @@ class GameScene: SKScene, ObservableObject {
                 skibidiToilet.node.size = CGSize(width: skibidiToiletWidth, height: skibidiToiletHeight)
                 skibidiToilet.row = 7-column
                 skibidiToilet.column = row+1
+                skibidiToilet.arrayRow = row
+                skibidiToilet.arrayColumn = column
                 addChild(skibidiToilet.node)
                 skibidiToilets[column][row] = skibidiToilet
                 print("color: \(skibidiToiletImageName), row: \(skibidiToilet.row), column: \(skibidiToilet.column)")

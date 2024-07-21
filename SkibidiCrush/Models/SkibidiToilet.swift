@@ -12,6 +12,8 @@ class SkibidiToilet {
     var node = SKSpriteNode()
     var row = 0
     var column = 0
+    var arrayRow = 0
+    var arrayColumn = 0
     var colorImageName = ""
     
     init(imageName: String) {
