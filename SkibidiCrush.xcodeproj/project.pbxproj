@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F8A171832C54A2B800AF2D4E /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A171822C54A2B800AF2D4E /* GameOverView.swift */; };
 		F8A6A4D12C4B59CD007CAAA9 /* SkibidiCrushApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4D02C4B59CD007CAAA9 /* SkibidiCrushApp.swift */; };
 		F8A6A4D32C4B59CD007CAAA9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4D22C4B59CD007CAAA9 /* ContentView.swift */; };
 		F8A6A4D52C4B59CE007CAAA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8A6A4D42C4B59CE007CAAA9 /* Assets.xcassets */; };
@@ -16,9 +17,11 @@
 		F8A6A4EA2C4B6A80007CAAA9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4E92C4B6A80007CAAA9 /* GameScene.swift */; };
 		F8A6A4EC2C4B6B1C007CAAA9 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4EB2C4B6B1C007CAAA9 /* StartView.swift */; };
 		F8A6A4EF2C4B6DFB007CAAA9 /* SkibidiToilet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4EE2C4B6DFB007CAAA9 /* SkibidiToilet.swift */; };
+		F8EA802F2C4CB38F009F4622 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EA802E2C4CB38F009F4622 /* GameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F8A171822C54A2B800AF2D4E /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 		F8A6A4CD2C4B59CD007CAAA9 /* SkibidiCrush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkibidiCrush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A6A4D02C4B59CD007CAAA9 /* SkibidiCrushApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkibidiCrushApp.swift; sourceTree = "<group>"; };
 		F8A6A4D22C4B59CD007CAAA9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -29,6 +32,7 @@
 		F8A6A4E92C4B6A80007CAAA9 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		F8A6A4EB2C4B6B1C007CAAA9 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		F8A6A4EE2C4B6DFB007CAAA9 /* SkibidiToilet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkibidiToilet.swift; sourceTree = "<group>"; };
+		F8EA802E2C4CB38F009F4622 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,8 @@
 				F8A6A4D22C4B59CD007CAAA9 /* ContentView.swift */,
 				F8A6A4DF2C4B65B4007CAAA9 /* HighlightableButton.swift */,
 				F8A6A4EB2C4B6B1C007CAAA9 /* StartView.swift */,
+				F8EA802E2C4CB38F009F4622 /* GameView.swift */,
+				F8A171822C54A2B800AF2D4E /* GameOverView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -190,6 +196,8 @@
 				F8A6A4EF2C4B6DFB007CAAA9 /* SkibidiToilet.swift in Sources */,
 				F8A6A4EC2C4B6B1C007CAAA9 /* StartView.swift in Sources */,
 				F8A6A4E32C4B65FB007CAAA9 /* Extensions.swift in Sources */,
+				F8EA802F2C4CB38F009F4622 /* GameView.swift in Sources */,
+				F8A171832C54A2B800AF2D4E /* GameOverView.swift in Sources */,
 				F8A6A4D12C4B59CD007CAAA9 /* SkibidiCrushApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

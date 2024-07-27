@@ -8,16 +8,16 @@
 import Foundation
 import SpriteKit
 
-class SkibidiToilet {
+struct SkibidiToilet {
     var node = SKSpriteNode()
     var row = 0
     var column = 0
-    var arrayRow = 0
-    var arrayColumn = 0
     var colorImageName = ""
     
-    init(imageName: String) {
+    init(imageName: String, row: Int, column: Int) {
         self.colorImageName = imageName
+        self.row = row
+        self.column = column
         node.texture = SKTexture(imageNamed: imageName)
     }
 }

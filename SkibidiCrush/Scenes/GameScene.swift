@@ -14,6 +14,9 @@ class GameScene: SKScene, ObservableObject {
     var firstToiletTapped: SkibidiToilet?
     var secondToiletTapped: SkibidiToilet?
     
+    var pointsLabel = SKLabelNode()
+    var points = 0
+    
     override init(size: CGSize) {
         super.init(size: size)
         self.size = size
@@ -33,13 +36,38 @@ class GameScene: SKScene, ObservableObject {
         background.size = view.frame.size
         addChild(background)
         
+        createPointsBG()
+        createPointsLabel()
+        
         addSkibidiToilets()
         var isValidBoard = checkForValidBoardState()
         while !isValidBoard {
             print("Regenerated board")
+            for row in 0..<skibidiToilets.count {
+                for column in 0..<skibidiToilets[row].count {
+                    skibidiToilets[row][column]!.node.removeFromParent()
+                }
+            }
+            skibidiToilets = [[SkibidiToilet?]](repeating: [SkibidiToilet?](repeating: nil, count: 7), count: 7)
             addSkibidiToilets()
             isValidBoard = checkForValidBoardState()
         }
+    }
+    
+    private func createPointsBG() {
+        let pointsBG = SKSpriteNode(texture: SKTexture(imageNamed: "PointsArea"))
+        pointsBG.position = CGPoint(x: frame.width/2, y: frame.height/8*7)
+        pointsBG.size = CGSize(width: frame.size.width/2.5, height: frame.size.height/12)
+        addChild(pointsBG)
+    }
+    
+    private func createPointsLabel() {
+        pointsLabel.text = "\(points)"
+        pointsLabel.position = CGPoint(x: frame.width/2, y: frame.height/100*85.5)
+        pointsLabel.fontSize = 50
+        pointsLabel.fontColor = .black
+        pointsLabel.zPosition = 5
+        addChild(pointsLabel)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -48,38 +76,69 @@ class GameScene: SKScene, ObservableObject {
             guard let targetNode = atPoint(touchLocation) as? SKSpriteNode else { return }
             for row in 0..<skibidiToilets.count {
                 for column in 0..<skibidiToilets[row].count {
+                    //print("Color inside touches began: \(row), \(column): \(skibidiToilets[row][column]!.colorImageName)")
                     if targetNode == skibidiToilets[row][column]!.node {
-                        print("Skibidi toilet \(skibidiToilets[row][column]!.row), \(skibidiToilets[row][column]!.column)")
-                        //skibidiToilets[row][column]!.node.drawBorder(color: .green, width: 10.0)
                         // swap two toilets
                         if firstToiletTapped == nil {
-                            firstToiletTapped = skibidiToilets[row][column]
+                            skibidiToilets[row][column]!.node.drawBorder(color: .green, width: 1.0)
+                            //print("added border for first toilet at \(row), \(column), \(skibidiToilets[row][column]!.colorImageName)")
+                            firstToiletTapped = skibidiToilets[row][column]!
                         } else if secondToiletTapped == nil {
-                            print("\(abs(skibidiToilets[row][column]!.row-firstToiletTapped!.row))")
-                            print("\(abs(skibidiToilets[row][column]!.column-firstToiletTapped!.column))")
-                            if abs(skibidiToilets[row][column]!.row-firstToiletTapped!.row) <= 1 && abs(skibidiToilets[row][column]!.column-firstToiletTapped!.column) <= 1 {
-                                secondToiletTapped = skibidiToilets[row][column]
-                                // play animation
-                                // animation complete --> set below nodes to nil
+                            secondToiletTapped = skibidiToilets[row][column]!
+                            //print("first toilet tapped at top: \(firstToiletTapped!.row), \(firstToiletTapped!.column), \(firstToiletTapped!.colorImageName)")
+                            //print("second toilet tapped at top: \(secondToiletTapped!.row), \(secondToiletTapped!.column), \(secondToiletTapped!.colorImageName)")
+                            //print("row distance: \(abs(secondToiletTapped!.row-firstToiletTapped!.row)), column distance: \(abs(secondToiletTapped!.column-firstToiletTapped!.column))")
+                            if abs(secondToiletTapped!.row-firstToiletTapped!.row) <= 1 && abs(secondToiletTapped!.column-firstToiletTapped!.column) <= 1 {
+                                skibidiToilets[row][column]!.node.drawBorder(color: .green, width: 1.0)
+                                //print("added border for second toilet at \(row), \(column), \(skibidiToilets[row][column]!.colorImageName)")
                                 let moveFirstToiletAction = SKAction.move(to: CGPoint(x: secondToiletTapped!.node.position.x, y: secondToiletTapped!.node.position.y), duration: 0.3)
                                 let moveSecondToiletAction = SKAction.move(to: CGPoint(x: firstToiletTapped!.node.position.x, y: firstToiletTapped!.node.position.y), duration: 0.3)
-                                let firstToiletRow = firstToiletTapped!.row
-                                let firstToiletColumn = firstToiletTapped!.column
-                                skibidiToilets[firstToiletTapped!.arrayRow][firstToiletTapped!.arrayColumn]!.row = secondToiletTapped!.row
-                                skibidiToilets[firstToiletTapped!.arrayRow][firstToiletTapped!.arrayColumn]!.column = secondToiletTapped!.column
-                                skibidiToilets[secondToiletTapped!.arrayRow][secondToiletTapped!.arrayColumn]!.row = firstToiletRow
-                                skibidiToilets[secondToiletTapped!.arrayRow][secondToiletTapped!.arrayColumn]!.column = firstToiletColumn
-                                firstToiletTapped!.node.run(moveFirstToiletAction)
-                                secondToiletTapped!.node.run(moveSecondToiletAction, completion: {
+                                //print("first toilet before swap: \(firstToiletTapped!.row), \(firstToiletTapped!.column), \(firstToiletTapped!.colorImageName)")
+                                //print("second toilet before swap: \(secondToiletTapped!.row), \(secondToiletTapped!.column), \(secondToiletTapped!.colorImageName)")
+                                
+                                skibidiToilets[firstToiletTapped!.row][firstToiletTapped!.column]! = secondToiletTapped!//skibidiToilets[secondToiletTapped!.row][secondToiletTapped!.column]!
+                                skibidiToilets[firstToiletTapped!.row][firstToiletTapped!.column]!.row = firstToiletTapped!.row
+                                skibidiToilets[firstToiletTapped!.row][firstToiletTapped!.column]!.column = firstToiletTapped!.column
+                                
+                                skibidiToilets[secondToiletTapped!.row][secondToiletTapped!.column]! = firstToiletTapped!
+                                skibidiToilets[secondToiletTapped!.row][secondToiletTapped!.column]!.row = secondToiletTapped!.row
+                                skibidiToilets[secondToiletTapped!.row][secondToiletTapped!.column]!.column = secondToiletTapped!.column
+                                //print("firstToiletTapped: \(firstToiletTapped!.row), \(firstToiletTapped!.column), \(firstToiletTapped!.colorImageName)")
+                                //print("secondToiletTapped: \(secondToiletTapped!.row), \(secondToiletTapped!.column), \(secondToiletTapped!.colorImageName)")
+                                firstToiletTapped!.node.run(moveFirstToiletAction, completion: {
+                                    self.skibidiToilets[self.firstToiletTapped!.row][self.firstToiletTapped!.column]!.node.removeBorder()
+                                    //print("Removed border for first toilet at: \(self.firstToiletTapped!.row), \(self.firstToiletTapped!.column), \(self.firstToiletTapped!.colorImageName)")
                                     self.firstToiletTapped = nil
-                                    self.secondToiletTapped = nil
                                 })
+                                secondToiletTapped!.node.run(moveSecondToiletAction, completion: {
+                                    self.skibidiToilets[self.secondToiletTapped!.row][self.secondToiletTapped!.column]!.node.removeBorder()
+                                    //print("Removed border for second toilet at:  \(self.secondToiletTapped!.row), \(self.secondToiletTapped!.column), \(self.secondToiletTapped!.colorImageName)")
+                                    self.secondToiletTapped = nil
+                                    self.evaluateBoardForMatches()
+                                    //print("after swap board:")
+                                    //self.printBoard()
+                                })
+                            } else {
+                                firstToiletTapped!.node.removeBorder()
+                                secondToiletTapped!.node.removeBorder()
+                                firstToiletTapped = nil
+                                secondToiletTapped = nil
                             }
                         }
                     }
                 }
             }
         }
+    }
+    
+    private func printBoard() {
+        for row in 0..<skibidiToilets.count {
+            for column in 0..<skibidiToilets[row].count {
+                print("\(skibidiToilets[row][column]!.colorImageName)")
+            }
+            print()
+        }
+        print("Finished printing")
     }
     
     private func addSkibidiToilets() {
@@ -107,18 +166,49 @@ class GameScene: SKScene, ObservableObject {
                 default:
                     break
                 }
-                let skibidiToilet = SkibidiToilet(imageName: skibidiToiletImageName)
-                skibidiToilet.node.position = CGPoint(x: xOffset + squareWidth*CGFloat(row), y: yOffset + squareHeight*CGFloat(column))
+                let skibidiToilet = SkibidiToilet(imageName: skibidiToiletImageName, row: row, column: column)
+                skibidiToilet.node.position = CGPoint(x: xOffset + squareWidth*CGFloat(column), y: yOffset + squareHeight*CGFloat(6-row))
                 skibidiToilet.node.size = CGSize(width: skibidiToiletWidth, height: skibidiToiletHeight)
-                skibidiToilet.row = 7-column
-                skibidiToilet.column = row+1
-                skibidiToilet.arrayRow = row
-                skibidiToilet.arrayColumn = column
                 addChild(skibidiToilet.node)
-                skibidiToilets[column][row] = skibidiToilet
-                print("color: \(skibidiToiletImageName), row: \(skibidiToilet.row), column: \(skibidiToilet.column)")
+                skibidiToilets[row][column] = skibidiToilet
+                //print("add skibidi toilets \(skibidiToilet.colorImageName), \(row), \(column)")
             }
         }
+    }
+    
+    private func evaluateBoardForMatches() {
+        print("starting evaluation for matches")
+        for row in 0..<skibidiToilets.count {
+            for column in 0..<skibidiToilets[row].count {
+                let skibidiToilet = skibidiToilets[row][column]
+                // o o o
+                // x x x
+                // o o o
+                if column > 0 &&
+                    column < skibidiToilets[row].count-1 &&
+                    skibidiToilets[row][column-1]!.colorImageName == skibidiToilet!.colorImageName &&
+                    skibidiToilets[row][column+1]!.colorImageName == skibidiToilet!.colorImageName {
+                    print()
+                    print("left toilet: \(skibidiToilets[row][column-1]!.colorImageName) row: \(skibidiToilets[row][column-1]!.row) column: \(skibidiToilets[row][column-1]!.column)")
+                    print("right toilet: \(skibidiToilets[row][column+1]!.colorImageName) row: \(skibidiToilets[row][column+1]!.row) column: \(skibidiToilets[row][column+1]!.column)")
+                    print("matched horizontally")
+                }
+                
+                // o x o
+                // o x o
+                // o x o
+                if row > 0 &&
+                    row < skibidiToilets.count-1 &&
+                    skibidiToilets[row-1][column]!.colorImageName == skibidiToilet!.colorImageName &&
+                    skibidiToilets[row+1][column]!.colorImageName == skibidiToilet!.colorImageName {
+                    print()
+                    print("bottom toilet: \(skibidiToilets[row-1][column]!.colorImageName) row: \(skibidiToilets[row-1][column]!.row) column: \(skibidiToilets[row-1][column]!.column)")
+                    print("top toilet: \(skibidiToilets[row+1][column]!.colorImageName) row: \(skibidiToilets[row+1][column]!.row) column: \(skibidiToilets[row+1][column]!.column)")
+                    print("matched vertically")
+                }
+            }
+        }
+        print("finished evaluation for matches")
     }
     
     // Checks if a move can be made to match 3 in a row
@@ -136,7 +226,7 @@ class GameScene: SKScene, ObservableObject {
                     column < skibidiToilets[row].count-1 &&
                     skibidiToilets[row+1][column-1]!.colorImageName == skibidiToilet!.colorImageName &&
                     skibidiToilets[row+1][column+1]!.colorImageName == skibidiToilet!.colorImageName {
-                    print("case 1, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
+                    print("valid board case 1, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
                     return true
                 }
                 // x o o
@@ -148,7 +238,7 @@ class GameScene: SKScene, ObservableObject {
                     column < skibidiToilets[row].count-1 &&
                     skibidiToilets[row-1][column-1]!.colorImageName == skibidiToilet!.colorImageName &&
                     skibidiToilets[row+1][column-1]!.colorImageName == skibidiToilet!.colorImageName {
-                    print("case 2, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
+                    print("valid board case 2, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
                     return true
                 }
                 // o o x
@@ -160,7 +250,7 @@ class GameScene: SKScene, ObservableObject {
                     column < skibidiToilets[row].count-1 &&
                     skibidiToilets[row-1][column+1]!.colorImageName == skibidiToilet!.colorImageName &&
                     skibidiToilets[row+1][column+1]!.colorImageName == skibidiToilet!.colorImageName {
-                    print("case 3, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
+                    print("valid board case 3, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
                     return true
                 }
                 // x o x
@@ -172,7 +262,7 @@ class GameScene: SKScene, ObservableObject {
                     column < skibidiToilets[row].count-1 &&
                     skibidiToilets[row-1][column-1]!.colorImageName == skibidiToilet!.colorImageName &&
                     skibidiToilets[row-1][column+1]!.colorImageName == skibidiToilet!.colorImageName {
-                    print("case 4, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
+                    print("valid board case 4, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
                     return true
                 }
                 // scenario checking outer toilet
@@ -187,7 +277,7 @@ class GameScene: SKScene, ObservableObject {
                     column < skibidiToilets[row].count-2 &&
                     skibidiToilets[row+1][column+1]!.colorImageName == skibidiToilet!.colorImageName &&
                     skibidiToilets[row+1][column+2]!.colorImageName == skibidiToilet!.colorImageName {
-                    print("case 5, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
+                    print("valid board case 5, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
                     return true
                 }
                 // o o o o o
@@ -201,7 +291,7 @@ class GameScene: SKScene, ObservableObject {
                     column < skibidiToilets[row].count-2 &&
                     skibidiToilets[row-1][column+1]!.colorImageName == skibidiToilet!.colorImageName &&
                     skibidiToilets[row-1][column+2]!.colorImageName == skibidiToilet!.colorImageName {
-                    print("case 6, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
+                    print("valid board case 6, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
                     return true
                 }
                 // o o o o o
@@ -215,7 +305,7 @@ class GameScene: SKScene, ObservableObject {
                     column < skibidiToilets[row].count-1 &&
                     skibidiToilets[row+1][column-1]!.colorImageName == skibidiToilet!.colorImageName &&
                     skibidiToilets[row+1][column-2]!.colorImageName == skibidiToilet!.colorImageName {
-                    print("case 7, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
+                    print("valid board case 7, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
                     return true
                 }
                 // o o o o o
@@ -229,7 +319,7 @@ class GameScene: SKScene, ObservableObject {
                     column < skibidiToilets[row].count-1 &&
                     skibidiToilets[row-1][column-1]!.colorImageName == skibidiToilet!.colorImageName &&
                     skibidiToilets[row-1][column-2]!.colorImageName == skibidiToilet!.colorImageName {
-                    print("case 8, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
+                    print("valid board case 8, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
                     return true
                 }
                 // o x o o o
@@ -243,7 +333,7 @@ class GameScene: SKScene, ObservableObject {
                     column < skibidiToilets[row].count-1 &&
                     skibidiToilets[row-1][column-1]!.colorImageName == skibidiToilet!.colorImageName &&
                     skibidiToilets[row-2][column-1]!.colorImageName == skibidiToilet!.colorImageName {
-                    print("case 9, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
+                    print("valid board case 9, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
                     return true
                 }
                 // o o o x o
@@ -257,7 +347,7 @@ class GameScene: SKScene, ObservableObject {
                     column < skibidiToilets[row].count-1 &&
                     skibidiToilets[row-1][column+1]!.colorImageName == skibidiToilet!.colorImageName &&
                     skibidiToilets[row-2][column+1]!.colorImageName == skibidiToilet!.colorImageName {
-                    print("case 10, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
+                    print("valid board case 10, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
                     return true
                 }
                 // o o o o o
@@ -271,7 +361,7 @@ class GameScene: SKScene, ObservableObject {
                     column < skibidiToilets[row].count-1 &&
                     skibidiToilets[row+1][column+1]!.colorImageName == skibidiToilet!.colorImageName &&
                     skibidiToilets[row+2][column+1]!.colorImageName == skibidiToilet!.colorImageName {
-                    print("case 11, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
+                    print("valid board case 11, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
                     return true
                 }
                 // o o o o o
@@ -285,7 +375,7 @@ class GameScene: SKScene, ObservableObject {
                     column < skibidiToilets[row].count-1 &&
                     skibidiToilets[row+1][column-1]!.colorImageName == skibidiToilet!.colorImageName &&
                     skibidiToilets[row+2][column-1]!.colorImageName == skibidiToilet!.colorImageName {
-                    print("case 12, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
+                    print("valid board case 12, \(skibidiToilets[row][column]!.row),\(skibidiToilets[row][column]!.column), color: \(skibidiToilets[row][column]!.colorImageName)")
                     return true
                 }
             }

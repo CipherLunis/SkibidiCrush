@@ -23,8 +23,7 @@ struct ContentView: View {
                         showGameView = true
                     })
                 } else if showGameView {
-                    SpriteView(scene: game/*, debugOptions: [.showsNodeCount]*/)
-                        .ignoresSafeArea()
+                    GameView(game: game)
                 }
             }
         }

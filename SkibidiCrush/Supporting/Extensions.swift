@@ -41,10 +41,19 @@ extension UIImage {
 
 extension SKSpriteNode {
     func drawBorder(color: UIColor, width: CGFloat) {
-        let shapeNode = SKShapeNode(rect: frame)
+        let shapeNode = SKShapeNode(rectOf: CGSize(width: frame.width, height: frame.height))
+        shapeNode.name = "border"
         shapeNode.fillColor = .clear
         shapeNode.strokeColor = color
         shapeNode.lineWidth = width
         addChild(shapeNode)
+    }
+    
+    func removeBorder() {
+        for layer in self.children {
+            if layer.name == "border" {
+                layer.removeFromParent()
+            }
+        }
     }
 }
