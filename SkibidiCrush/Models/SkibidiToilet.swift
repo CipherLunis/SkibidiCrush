@@ -12,6 +12,8 @@ struct SkibidiToilet {
     var node = SKSpriteNode()
     var row = 0
     var column = 0
+    var isMatched = false
+    var didRemoveMatchedToilet = false
     var colorImageName = ""
     
     init(imageName: String, row: Int, column: Int) {

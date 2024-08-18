@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F883497D2C56070900A7C7D6 /* RemoveParticlePink.sks in Resources */ = {isa = PBXBuildFile; fileRef = F883497B2C56070900A7C7D6 /* RemoveParticlePink.sks */; };
+		F883497E2C56070900A7C7D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F883497C2C56070900A7C7D6 /* Assets.xcassets */; };
+		F88349842C560B9D00A7C7D6 /* RemoveParticleGreen.sks in Resources */ = {isa = PBXBuildFile; fileRef = F883497F2C560B9D00A7C7D6 /* RemoveParticleGreen.sks */; };
+		F88349852C560B9D00A7C7D6 /* RemoveParticleYellow.sks in Resources */ = {isa = PBXBuildFile; fileRef = F88349802C560B9D00A7C7D6 /* RemoveParticleYellow.sks */; };
+		F88349862C560B9D00A7C7D6 /* RemoveParticleRed.sks in Resources */ = {isa = PBXBuildFile; fileRef = F88349812C560B9D00A7C7D6 /* RemoveParticleRed.sks */; };
+		F88349882C560B9D00A7C7D6 /* RemoveParticleOrange.sks in Resources */ = {isa = PBXBuildFile; fileRef = F88349832C560B9D00A7C7D6 /* RemoveParticleOrange.sks */; };
+		F883498A2C560BD400A7C7D6 /* RemoveParticleBlue.sks in Resources */ = {isa = PBXBuildFile; fileRef = F88349892C560BD400A7C7D6 /* RemoveParticleBlue.sks */; };
 		F8A171832C54A2B800AF2D4E /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A171822C54A2B800AF2D4E /* GameOverView.swift */; };
 		F8A6A4D12C4B59CD007CAAA9 /* SkibidiCrushApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4D02C4B59CD007CAAA9 /* SkibidiCrushApp.swift */; };
 		F8A6A4D32C4B59CD007CAAA9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4D22C4B59CD007CAAA9 /* ContentView.swift */; };
@@ -21,6 +28,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F883497B2C56070900A7C7D6 /* RemoveParticlePink.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RemoveParticlePink.sks; sourceTree = "<group>"; };
+		F883497C2C56070900A7C7D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F883497F2C560B9D00A7C7D6 /* RemoveParticleGreen.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RemoveParticleGreen.sks; sourceTree = "<group>"; };
+		F88349802C560B9D00A7C7D6 /* RemoveParticleYellow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RemoveParticleYellow.sks; sourceTree = "<group>"; };
+		F88349812C560B9D00A7C7D6 /* RemoveParticleRed.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RemoveParticleRed.sks; sourceTree = "<group>"; };
+		F88349832C560B9D00A7C7D6 /* RemoveParticleOrange.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RemoveParticleOrange.sks; sourceTree = "<group>"; };
+		F88349892C560BD400A7C7D6 /* RemoveParticleBlue.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RemoveParticleBlue.sks; sourceTree = "<group>"; };
 		F8A171822C54A2B800AF2D4E /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 		F8A6A4CD2C4B59CD007CAAA9 /* SkibidiCrush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkibidiCrush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A6A4D02C4B59CD007CAAA9 /* SkibidiCrushApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkibidiCrushApp.swift; sourceTree = "<group>"; };
@@ -46,6 +60,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F883497A2C5606EF00A7C7D6 /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				F883497B2C56070900A7C7D6 /* RemoveParticlePink.sks */,
+				F883497F2C560B9D00A7C7D6 /* RemoveParticleGreen.sks */,
+				F88349812C560B9D00A7C7D6 /* RemoveParticleRed.sks */,
+				F88349802C560B9D00A7C7D6 /* RemoveParticleYellow.sks */,
+				F88349832C560B9D00A7C7D6 /* RemoveParticleOrange.sks */,
+				F88349892C560BD400A7C7D6 /* RemoveParticleBlue.sks */,
+				F883497C2C56070900A7C7D6 /* Assets.xcassets */,
+			);
+			path = Particles;
+			sourceTree = "<group>";
+		};
 		F8A6A4C42C4B59CD007CAAA9 = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +93,7 @@
 		F8A6A4CF2C4B59CD007CAAA9 /* SkibidiCrush */ = {
 			isa = PBXGroup;
 			children = (
+				F883497A2C5606EF00A7C7D6 /* Particles */,
 				F8A6A4ED2C4B6DEF007CAAA9 /* Models */,
 				F8A6A4E42C4B6A45007CAAA9 /* Scenes */,
 				F8A6A4E12C4B65F1007CAAA9 /* Supporting */,
@@ -179,7 +208,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8A6A4D82C4B59CE007CAAA9 /* Preview Assets.xcassets in Resources */,
+				F883498A2C560BD400A7C7D6 /* RemoveParticleBlue.sks in Resources */,
 				F8A6A4D52C4B59CE007CAAA9 /* Assets.xcassets in Resources */,
+				F88349882C560B9D00A7C7D6 /* RemoveParticleOrange.sks in Resources */,
+				F88349842C560B9D00A7C7D6 /* RemoveParticleGreen.sks in Resources */,
+				F883497D2C56070900A7C7D6 /* RemoveParticlePink.sks in Resources */,
+				F88349862C560B9D00A7C7D6 /* RemoveParticleRed.sks in Resources */,
+				F88349852C560B9D00A7C7D6 /* RemoveParticleYellow.sks in Resources */,
+				F883497E2C56070900A7C7D6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -41,13 +41,11 @@ struct HighlightableButton: UIViewRepresentable {
             button.setImage(resizedFGImage, for: .normal)
             button.semanticContentAttribute = .forceLeftToRight
             button.contentHorizontalAlignment = .left
-            button.imageEdgeInsets = UIEdgeInsets(top: 0, left: UIDevice.current.userInterfaceIdiom == .pad ? 27 : 16, bottom: 0, right: 0)
             
             button.setTitle(buttonTitle, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 50 : 30)
             button.setTitleColor(.white, for: .normal)
             button.setTitleColor(.gray, for: .highlighted)
-            button.titleEdgeInsets = UIEdgeInsets(top: 0, left: UIDevice.current.userInterfaceIdiom == .pad ? 45 : 25, bottom: 0, right: 0)
         }
         
         return button
@@ -90,4 +88,3 @@ struct HighlightableButton: UIViewRepresentable {
         }
     }
 }
-

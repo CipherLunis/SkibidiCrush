@@ -13,24 +13,32 @@ struct GameOverView: View {
     
     var body: some View {
         GeometryReader { geo in
-            Image("SkibidiEndBG")
-                .resizable()
-                .frame(width: geo.size.width/1.5, height: geo.size.height/3)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            VStack {
-                Spacer()
-                HStack {
+            ZStack {
+                VStack {
                     Spacer()
-                        .frame(width: geo.size.width/4)
-                    Text("Points: ")
-                        .font(.system(size: 30.0))
+                    Text("Game Over!")
+                        .font(.system(size: 50.0))
                         .fontWeight(.semibold)
-                    Text("\(points)")
-                        .font(.system(size: 25.0))
+                        .foregroundStyle(.pink)
+                    Image("SkibidiEndBG")
+                        .resizable()
+                        .frame(width: geo.size.width/1.7, height: geo.size.height/5)
                     Spacer()
                 }
-                Spacer()
+                VStack {
+                    Spacer()
+                        .frame(height: geo.size.height/1.85)
+                    HStack {
+                        Text("Points: ")
+                            .font(.system(size: 30.0))
+                            .fontWeight(.semibold)
+                        Text("\(points)")
+                            .font(.system(size: 25.0))
+                    }
+                    Spacer()
+                }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }

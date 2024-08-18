@@ -16,7 +16,7 @@ struct GameView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                SpriteView(scene: game/*, debugOptions: [.showsNodeCount]*/)
+                SpriteView(scene: game)
                     .ignoresSafeArea()
                 VStack {
                     HStack {
@@ -46,8 +46,16 @@ struct GameView: View {
                         .clipShape(Capsule())
                         .frame(width: geo.size.width/1.2, height: geo.size.height/14)
                 }
+                // shadow opacity
+               Rectangle()
+                   .fill(.black)
+                   .ignoresSafeArea()
+                   .frame(width: geo.size.width, height: geo.size.height)
+                   .opacity(game.isGameOver ? 0.5 : 0.0)
+               GameOverView(points: game.points)
+                   .offset(y: game.isGameOver ? 0.0 : geo.size.height)
+                   .animation(.interpolatingSpring(mass: 0.01, stiffness: 1, damping: 0.5, initialVelocity: 5.0), value: game.isGameOver)
             }
-            //.frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }
