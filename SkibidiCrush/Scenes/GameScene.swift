@@ -273,7 +273,7 @@ class GameScene: SKScene, ObservableObject {
                                 }
                             }
                         }
-                        var isBoardValid = self.checkForValidBoardState()
+                        let isBoardValid = self.checkForValidBoardState()
                         if isReadyToCheckForValidBoardState && foundMatch && isBoardValid {
                             self.evaluateBoardForMatches()
                         } else if !isBoardValid {
