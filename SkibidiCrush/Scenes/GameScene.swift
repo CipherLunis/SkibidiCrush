@@ -26,6 +26,8 @@ class GameScene: SKScene, ObservableObject {
     
     @Published var isGameOver = false
     
+    private let soundQueue = DispatchQueue(label: "com.cipherlunis.skibidicrush.soundqueue")
+    
     override init(size: CGSize) {
         super.init(size: size)
         self.size = size
@@ -183,6 +185,9 @@ class GameScene: SKScene, ObservableObject {
                         skibidiToilets[row][column-1]!.isMatched = true
                         skibidiToilets[row][column]!.isMatched = true
                         skibidiToilets[row][column+1]!.isMatched = true
+                        soundQueue.async {
+                            SoundManager.sharedInstance.playSound(fileName: "Skibidi")
+                        }
                     }
                     
                     // o x o
@@ -198,6 +203,9 @@ class GameScene: SKScene, ObservableObject {
                         skibidiToilets[row-1][column]!.isMatched = true
                         skibidiToilets[row][column]!.isMatched = true
                         skibidiToilets[row+1][column]!.isMatched = true
+                        soundQueue.async {
+                            SoundManager.sharedInstance.playSound(fileName: "Skibidi")
+                        }
                     }
                 }
                 

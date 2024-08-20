@@ -14,6 +14,8 @@
 		F88349862C560B9D00A7C7D6 /* RemoveParticleRed.sks in Resources */ = {isa = PBXBuildFile; fileRef = F88349812C560B9D00A7C7D6 /* RemoveParticleRed.sks */; };
 		F88349882C560B9D00A7C7D6 /* RemoveParticleOrange.sks in Resources */ = {isa = PBXBuildFile; fileRef = F88349832C560B9D00A7C7D6 /* RemoveParticleOrange.sks */; };
 		F883498A2C560BD400A7C7D6 /* RemoveParticleBlue.sks in Resources */ = {isa = PBXBuildFile; fileRef = F88349892C560BD400A7C7D6 /* RemoveParticleBlue.sks */; };
+		F89CC7862C753C3000F06135 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89CC7852C753C3000F06135 /* SoundManager.swift */; };
+		F89CC7892C753D3200F06135 /* Skibidi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F89CC7882C753D3200F06135 /* Skibidi.mp3 */; };
 		F8A171832C54A2B800AF2D4E /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A171822C54A2B800AF2D4E /* GameOverView.swift */; };
 		F8A6A4D12C4B59CD007CAAA9 /* SkibidiCrushApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4D02C4B59CD007CAAA9 /* SkibidiCrushApp.swift */; };
 		F8A6A4D32C4B59CD007CAAA9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6A4D22C4B59CD007CAAA9 /* ContentView.swift */; };
@@ -35,6 +37,8 @@
 		F88349812C560B9D00A7C7D6 /* RemoveParticleRed.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RemoveParticleRed.sks; sourceTree = "<group>"; };
 		F88349832C560B9D00A7C7D6 /* RemoveParticleOrange.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RemoveParticleOrange.sks; sourceTree = "<group>"; };
 		F88349892C560BD400A7C7D6 /* RemoveParticleBlue.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RemoveParticleBlue.sks; sourceTree = "<group>"; };
+		F89CC7852C753C3000F06135 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		F89CC7882C753D3200F06135 /* Skibidi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Skibidi.mp3; sourceTree = "<group>"; };
 		F8A171822C54A2B800AF2D4E /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 		F8A6A4CD2C4B59CD007CAAA9 /* SkibidiCrush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkibidiCrush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A6A4D02C4B59CD007CAAA9 /* SkibidiCrushApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkibidiCrushApp.swift; sourceTree = "<group>"; };
@@ -74,6 +78,22 @@
 			path = Particles;
 			sourceTree = "<group>";
 		};
+		F89CC7842C753C2400F06135 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				F89CC7852C753C3000F06135 /* SoundManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		F89CC7872C753D2700F06135 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				F89CC7882C753D3200F06135 /* Skibidi.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		F8A6A4C42C4B59CD007CAAA9 = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +113,8 @@
 		F8A6A4CF2C4B59CD007CAAA9 /* SkibidiCrush */ = {
 			isa = PBXGroup;
 			children = (
+				F89CC7872C753D2700F06135 /* Sounds */,
+				F89CC7842C753C2400F06135 /* Managers */,
 				F883497A2C5606EF00A7C7D6 /* Particles */,
 				F8A6A4ED2C4B6DEF007CAAA9 /* Models */,
 				F8A6A4E42C4B6A45007CAAA9 /* Scenes */,
@@ -207,6 +229,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F89CC7892C753D3200F06135 /* Skibidi.mp3 in Resources */,
 				F8A6A4D82C4B59CE007CAAA9 /* Preview Assets.xcassets in Resources */,
 				F883498A2C560BD400A7C7D6 /* RemoveParticleBlue.sks in Resources */,
 				F8A6A4D52C4B59CE007CAAA9 /* Assets.xcassets in Resources */,
@@ -235,6 +258,7 @@
 				F8EA802F2C4CB38F009F4622 /* GameView.swift in Sources */,
 				F8A171832C54A2B800AF2D4E /* GameOverView.swift in Sources */,
 				F8A6A4D12C4B59CD007CAAA9 /* SkibidiCrushApp.swift in Sources */,
+				F89CC7862C753C3000F06135 /* SoundManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
