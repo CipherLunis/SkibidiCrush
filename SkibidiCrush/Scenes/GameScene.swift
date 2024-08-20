@@ -266,7 +266,6 @@ class GameScene: SKScene, ObservableObject {
                         self.addChild(skibidiToilet.node)
                         self.skibidiToilets[row][column] = skibidiToilet
                         var isReadyToCheckForValidBoardState = true
-                        // spaghetti
                         for row in 0..<self.skibidiToilets.count {
                             for column in 0..<self.skibidiToilets[row].count {
                                 if self.skibidiToilets[row][column]!.didRemoveMatchedToilet {
