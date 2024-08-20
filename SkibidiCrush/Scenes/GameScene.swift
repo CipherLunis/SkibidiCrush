@@ -15,7 +15,6 @@ class GameScene: SKScene, ObservableObject {
     var secondToiletTapped: SkibidiToilet?
     
     var pointsLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
-    var points = 0
     
     var xOffset = 0.0
     var yOffset = 0.0
@@ -25,6 +24,7 @@ class GameScene: SKScene, ObservableObject {
     var skibidiToiletHeight = 0.0
     
     @Published var isGameOver = false
+    @Published var points = 0
     
     private let soundQueue = DispatchQueue(label: "com.cipherlunis.skibidicrush.soundqueue")
     
@@ -167,109 +167,122 @@ class GameScene: SKScene, ObservableObject {
     }
     
     private func evaluateBoardForMatches() {
+        var foundMatch = false
         
-        if(checkForValidBoardState()) {
-            for row in 0..<skibidiToilets.count {
-                for column in 0..<skibidiToilets[row].count {
-                    let currSkibidiToilet = skibidiToilets[row][column]!
-                    // o o o
-                    // x x x
-                    // o o o
-                    if column > 0 &&
-                        column < skibidiToilets[row].count-1 &&
-                        skibidiToilets[row][column-1]!.colorImageName == currSkibidiToilet.colorImageName &&
-                        skibidiToilets[row][column+1]!.colorImageName == currSkibidiToilet.colorImageName {
-                        if !skibidiToilets[row][column]!.isMatched {
-                            points += 10
-                        }
-                        skibidiToilets[row][column-1]!.isMatched = true
-                        skibidiToilets[row][column]!.isMatched = true
-                        skibidiToilets[row][column+1]!.isMatched = true
-                        soundQueue.async {
-                            SoundManager.sharedInstance.playSound(fileName: "Skibidi")
-                        }
+        for row in 0..<skibidiToilets.count {
+            for column in 0..<skibidiToilets[row].count {
+                let currSkibidiToilet = skibidiToilets[row][column]!
+                // o o o
+                // x x x
+                // o o o
+                if column > 0 &&
+                    column < skibidiToilets[row].count-1 &&
+                    skibidiToilets[row][column-1]!.colorImageName == currSkibidiToilet.colorImageName &&
+                    skibidiToilets[row][column+1]!.colorImageName == currSkibidiToilet.colorImageName {
+                    if !skibidiToilets[row][column]!.isMatched {
+                        points += 10
+                        foundMatch = true
                     }
-                    
-                    // o x o
-                    // o x o
-                    // o x o
-                    if row > 0 &&
-                        row < skibidiToilets.count-1 &&
-                        skibidiToilets[row-1][column]!.colorImageName == currSkibidiToilet.colorImageName &&
-                        skibidiToilets[row+1][column]!.colorImageName == currSkibidiToilet.colorImageName {
-                        if !skibidiToilets[row][column]!.isMatched {
-                            points += 10
-                        }
-                        skibidiToilets[row-1][column]!.isMatched = true
-                        skibidiToilets[row][column]!.isMatched = true
-                        skibidiToilets[row+1][column]!.isMatched = true
-                        soundQueue.async {
-                            SoundManager.sharedInstance.playSound(fileName: "Skibidi")
-                        }
+                    skibidiToilets[row][column-1]!.isMatched = true
+                    skibidiToilets[row][column]!.isMatched = true
+                    skibidiToilets[row][column+1]!.isMatched = true
+                    soundQueue.async {
+                        SoundManager.sharedInstance.playSound(fileName: "Skibidi")
                     }
                 }
                 
-                pointsLabel.text = "\(points)"
+                // o x o
+                // o x o
+                // o x o
+                if row > 0 &&
+                    row < skibidiToilets.count-1 &&
+                    skibidiToilets[row-1][column]!.colorImageName == currSkibidiToilet.colorImageName &&
+                    skibidiToilets[row+1][column]!.colorImageName == currSkibidiToilet.colorImageName {
+                    if !skibidiToilets[row][column]!.isMatched {
+                        points += 10
+                        foundMatch = true
+                    }
+                    skibidiToilets[row-1][column]!.isMatched = true
+                    skibidiToilets[row][column]!.isMatched = true
+                    skibidiToilets[row+1][column]!.isMatched = true
+                    soundQueue.async {
+                        SoundManager.sharedInstance.playSound(fileName: "Skibidi")
+                    }
+                }
             }
             
-            // Remove toilets from screen when they're matched
-            for row in 0..<skibidiToilets.count {
-                for column in 0..<skibidiToilets[row].count {
-                    if skibidiToilets[row][column]!.isMatched && !skibidiToilets[row][column]!.didRemoveMatchedToilet {
-                        let growAction = SKAction.scale(to: 1.2, duration: 0.1)
-                        let shrinkAction = SKAction.scale(to: 0.0, duration: 0.3)
-                        let removeAction = SKAction.removeFromParent()
-                        var removeParticleColor = "RemoveParticlePink"
-                        switch(skibidiToilets[row][column]!.colorImageName) {
-                        case "SkibidiOrange":
-                            removeParticleColor = "RemoveParticleOrange"
-                        case "SkibidiBlue":
-                            removeParticleColor = "RemoveParticleBlue"
-                        case "SkibidiRed":
-                            removeParticleColor = "RemoveParticleRed"
-                        case "SkibidiYellow":
-                            removeParticleColor = "RemoveParticleYellow"
-                        case "SkibidiGreen":
-                            removeParticleColor = "RemoveParticleGreen"
+            pointsLabel.text = "\(points)"
+        }
+            
+        // Remove toilets from screen when they're matched
+        for row in 0..<skibidiToilets.count {
+            for column in 0..<skibidiToilets[row].count {
+                if skibidiToilets[row][column]!.isMatched && !skibidiToilets[row][column]!.didRemoveMatchedToilet {
+                    skibidiToilets[row][column]!.didRemoveMatchedToilet = true
+                    skibidiToilets[row][column]!.isMatched = false
+                    let growAction = SKAction.scale(to: 1.2, duration: 0.1)
+                    let shrinkAction = SKAction.scale(to: 0.0, duration: 0.3)
+                    let removeAction = SKAction.removeFromParent()
+                    var removeParticleColor = "RemoveParticlePink"
+                    switch(skibidiToilets[row][column]!.colorImageName) {
+                    case "SkibidiOrange":
+                        removeParticleColor = "RemoveParticleOrange"
+                    case "SkibidiBlue":
+                        removeParticleColor = "RemoveParticleBlue"
+                    case "SkibidiRed":
+                        removeParticleColor = "RemoveParticleRed"
+                    case "SkibidiYellow":
+                        removeParticleColor = "RemoveParticleYellow"
+                    case "SkibidiGreen":
+                        removeParticleColor = "RemoveParticleGreen"
+                    default:
+                        break
+                    }
+                    let removeParticles = SKEmitterNode(fileNamed: "\(removeParticleColor).sks")!
+                    removeParticles.position = skibidiToilets[row][column]!.node.position
+                    removeParticles.zPosition = 4
+                    addChild(removeParticles)
+                    skibidiToilets[row][column]!.node.run(SKAction.sequence([growAction, shrinkAction, removeAction])) {
+                        removeParticles.removeFromParent()
+                        let colorOfToilet = Int.random(in: 0...5)
+                        var skibidiToiletImageName = "SkibidiPurple"
+                        switch colorOfToilet {
+                        case 0:
+                            skibidiToiletImageName = "SkibidiRed"
+                        case 1:
+                            skibidiToiletImageName = "SkibidiBlue"
+                        case 2:
+                            skibidiToiletImageName = "SkibidiYellow"
+                        case 3:
+                            skibidiToiletImageName = "SkibidiOrange"
+                        case 4:
+                            skibidiToiletImageName = "SkibidiGreen"
                         default:
                             break
                         }
-                        let removeParticles = SKEmitterNode(fileNamed: "\(removeParticleColor).sks")!
-                        removeParticles.position = skibidiToilets[row][column]!.node.position
-                        removeParticles.zPosition = 4
-                        addChild(removeParticles)
-                        skibidiToilets[row][column]!.didRemoveMatchedToilet = true
-                        skibidiToilets[row][column]!.node.run(SKAction.sequence([growAction, shrinkAction, removeAction])) {
-                            removeParticles.removeFromParent()
-                            let colorOfToilet = Int.random(in: 0...5)
-                            var skibidiToiletImageName = "SkibidiPurple"
-                            switch colorOfToilet {
-                            case 0:
-                                skibidiToiletImageName = "SkibidiRed"
-                            case 1:
-                                skibidiToiletImageName = "SkibidiBlue"
-                            case 2:
-                                skibidiToiletImageName = "SkibidiYellow"
-                            case 3:
-                                skibidiToiletImageName = "SkibidiOrange"
-                            case 4:
-                                skibidiToiletImageName = "SkibidiGreen"
-                            default:
-                                break
+                        let skibidiToilet = SkibidiToilet(imageName: skibidiToiletImageName, row: row, column: column)
+                        skibidiToilet.node.position = CGPoint(x: self.xOffset + self.squareWidth*CGFloat(column), y: self.yOffset + self.squareHeight*CGFloat(6-row))
+                        skibidiToilet.node.size = CGSize(width: self.skibidiToiletWidth, height: self.skibidiToiletHeight)
+                        self.addChild(skibidiToilet.node)
+                        self.skibidiToilets[row][column] = skibidiToilet
+                        var isReadyToCheckForValidBoardState = true
+                        // spaghetti
+                        for row in 0..<self.skibidiToilets.count {
+                            for column in 0..<self.skibidiToilets[row].count {
+                                if self.skibidiToilets[row][column]!.didRemoveMatchedToilet {
+                                    isReadyToCheckForValidBoardState = false
+                                }
                             }
-                            let skibidiToilet = SkibidiToilet(imageName: skibidiToiletImageName, row: row, column: column)
-                            skibidiToilet.node.position = CGPoint(x: self.xOffset + self.squareWidth*CGFloat(column), y: self.yOffset + self.squareHeight*CGFloat(6-row))
-                            skibidiToilet.node.size = CGSize(width: self.skibidiToiletWidth, height: self.skibidiToiletHeight)
-                            self.addChild(skibidiToilet.node)
-                            self.skibidiToilets[row][column] = skibidiToilet
+                        }
+                        var isBoardValid = self.checkForValidBoardState()
+                        if isReadyToCheckForValidBoardState && foundMatch && isBoardValid {
                             self.evaluateBoardForMatches()
+                        } else if !isBoardValid {
+                            self.isGameOver = true
                         }
                     }
                 }
             }
-        } else {
-            // game over
-            isGameOver = true
         }
     }
     

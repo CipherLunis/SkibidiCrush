@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameOverView: View {
     
-    @State var points = 0
+    var points: Int
     
     var body: some View {
         GeometryReader { geo in
@@ -44,5 +44,5 @@ struct GameOverView: View {
 }
 
 #Preview {
-    GameOverView()
+    GameOverView(points: 0)
 }
